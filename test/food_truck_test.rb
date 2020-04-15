@@ -51,4 +51,9 @@ class FoodTruckTest < Minitest::Test
     assert_equal 148.75, @food_truck.potential_revenue
   end
 
+  def test_it_can_list_items
+    @food_truck.stock(@item1, 35)
+    @food_truck.stock(@item2, 7)
+    assert_equal ['Peach Pie (Slice)','Apple Pie (Slice)'], @food_truck.list_items
+  end
 end
