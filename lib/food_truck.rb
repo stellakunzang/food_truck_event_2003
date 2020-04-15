@@ -24,4 +24,12 @@ class FoodTruck
   def list_items
     inventory.map {|item, count| item.name}
   end
+
+  def deplete(item, quantity)
+    if inventory[item] >= quantity
+      inventory[item] -= quantity
+    else
+      inventory[item] = 0
+    end 
+  end
 end
