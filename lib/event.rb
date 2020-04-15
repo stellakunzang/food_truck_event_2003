@@ -18,4 +18,14 @@ class Event
       truck.inventory.include?(item)
     end
   end
+
+  def sorted_item_list
+    all_items = []
+    food_trucks.each do |truck|
+      truck.list_items.each do |item|
+        all_items << item
+      end
+    end
+    all_items.sort.uniq
+  end
 end
