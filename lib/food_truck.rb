@@ -18,7 +18,10 @@ class FoodTruck
     inventory.each do |item, count|
       revenue += (item.price * count)
     end
-    revenue 
+    revenue
   end
 
+  def list_items
+    inventory.map {|item, count| item.name}
+  end
 end
