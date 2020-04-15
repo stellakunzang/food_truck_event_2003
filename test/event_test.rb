@@ -4,6 +4,7 @@ require "pry"
 require './lib/item'
 require './lib/food_truck'
 require './lib/event'
+require 'date'
 
 class EventTest < Minitest::Test
 
@@ -75,6 +76,19 @@ class EventTest < Minitest::Test
     @event.add_food_truck(@food_truck2)
     @event.add_food_truck(@food_truck3)
     assert_equal [@item1], @event.overstocked_items
+  end
+
+  def test_it_can_sell
+    @event.add_food_truck(@food_truck1)
+    @event.add_food_truck(@food_truck2)
+    @event.add_food_truck(@food_truck3)
+    assert_equal false, @event.sell(@item1, 200)
+    assert_equal false, @event.sell(@item5, 1)
+    assert_equal true, @event.sell(@item4, 5)
+    assert_equal 45, @food_truck2.check_stock(@item4)
+    assert_equal true, @event.sell(@item1, 40)
+    assert_equal 0, @food_truck1.check_stock(@item1)
+    assert_equal 60, @food_truck3.check_stock(@item1)
   end
 
 end
