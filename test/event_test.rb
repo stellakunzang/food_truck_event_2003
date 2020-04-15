@@ -54,4 +54,11 @@ class EventTest < Minitest::Test
     assert_equal [@food_truck2], @event.food_trucks_that_sell(@item4)
   end
 
+  def test_it_can_return_sorted_item_list
+    @event.add_food_truck(@food_truck1)
+    @event.add_food_truck(@food_truck2)
+    @event.add_food_truck(@food_truck3)
+    assert_equal ["Apple Pie (Slice)", "Banana Nice Cream", "Peach Pie (Slice)", "Peach-Raspberry Nice Cream"], @event.sorted_item_list
+  end
+
 end
