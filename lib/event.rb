@@ -42,11 +42,34 @@ class Event
 
   def overstocked_items
     overstock = []
-    total_inventory.each do |item, info|
+    total_inventory.find_all do |item, info|
       if info[:quantity] > 50 && info[:food_trucks].length > 1
         overstock << item
       end
     end
     overstock
   end
+
+  def sell(item, quantity)
+    index = 0
+    if total_inventory[item][:quantity] < quantity
+      false
+    elsif total_inventory[item][:quantity] >= quantity && total_inventory[item][:food_trucks][0].check_stock(item) >= quantity
+      total_inventory[item][:food_trucks][0].deplete(item, quantity)
+      return true
+    else
+      # until quantity == 0
+        if total_inventory[item][:food_trucks][index].check_stock(item) < quantity
+          total = total_inventory[item][:food_trucks][index].check_stock(item)
+          total_inventory[item][:food_trucks][index].deplete(item, total)
+          quantity -= total
+          index += 1
+        elsif total_inventory[item][:food_trucks][0].check_stock(item) >= quantity
+          total_inventory[item][:food_trucks][0].deplete(item, quantity)
+          quantity = 0
+        end
+      return true
+    end
+  end
+
 end
