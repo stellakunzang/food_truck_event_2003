@@ -56,4 +56,11 @@ class FoodTruckTest < Minitest::Test
     @food_truck.stock(@item2, 7)
     assert_equal ['Peach Pie (Slice)','Apple Pie (Slice)'], @food_truck.list_items
   end
+
+  def test_it_can_deplete
+    @food_truck.stock(@item1, 35)
+    @food_truck.deplete(@item1, 20)
+    assert_equal ({@item1=>15}), @food_truck.inventory 
+  end
+
 end
