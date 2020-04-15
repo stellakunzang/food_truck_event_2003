@@ -60,7 +60,9 @@ class FoodTruckTest < Minitest::Test
   def test_it_can_deplete
     @food_truck.stock(@item1, 35)
     @food_truck.deplete(@item1, 20)
-    assert_equal ({@item1=>15}), @food_truck.inventory 
+    assert_equal ({@item1=>15}), @food_truck.inventory
+    @food_truck.deplete(@item1, 20)
+    assert_equal ({@item1=>0}), @food_truck.inventory
   end
 
 end
