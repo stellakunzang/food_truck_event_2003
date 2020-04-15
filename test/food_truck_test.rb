@@ -10,6 +10,8 @@ class FoodTruckTest < Minitest::Test
     @item1 = Item.new({name: 'Peach Pie (Slice)', price: "$3.75"})
     @item2 = Item.new({name: 'Apple Pie (Slice)', price: '$2.50'})
     @food_truck = FoodTruck.new("Rocky Mountain Pies")
+    @item3 = Item.new({name: "Peach-Raspberry Nice Cream", price: "$5.30"})
+    @item4 = Item.new({name: "Banana Nice Cream", price: "$4.25"})
   end
 
   def test_it_exists
@@ -41,6 +43,12 @@ class FoodTruckTest < Minitest::Test
     @food_truck.stock(@item2, 12)
     expected = ({@item1 => 55, @item2 => 12})
     assert_equal expected, @food_truck.inventory
+  end
+
+  def test_potential_revenue
+    @food_truck.stock(@item1, 35)
+    @food_truck.stock(@item2, 7)
+    assert_equal 148.75, @food_truck.potential_revenue
   end
 
 end
